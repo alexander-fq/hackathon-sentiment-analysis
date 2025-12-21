@@ -1,0 +1,32 @@
+# ============ BACKEND (Java/Spring Boot) ============
+backend/target/
+backend/.mvn/
+backend/.idea/
+backend/*.iml
+backend/*.iws
+backend/*.ipr
+backend/.settings/
+backend/.classpath
+backend/.project
+
+# ============ DATA SCIENCE (Python) ============
+data-science/venv/
+data-science/env/
+data-science/__pycache__/
+data-science/*.py[cod]
+data-science/.ipynb_checkpoints/
+data-science/*.pkl
+data-science/*.joblib
+
+# ============ FRONTEND (Node/React) ============
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+frontend/.env.local
+
+# ============ GENERAL ============
+.env
+*.log
+.DS_Store
+*.swp
+*.tmp
