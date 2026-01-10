@@ -8,6 +8,7 @@ import com.hackathon.sentiment.repository.SentimentAnalysisRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import java.util.List;
 
 /**
  * Service: Sentiment analysis business logic
@@ -28,9 +29,9 @@ public class SentimentService {
         this.repository = repository;
     }
 
-    public SentimentResponse analyze(String text) {
-        // Create request for FastAPI
-        FastApiRequest request = new FastApiRequest(text);
+    public SentimentResponse analyze(String text, String language) {
+        // Create request for FastAPI with language parameter
+        FastApiRequest request = new FastApiRequest(text, language);
 
         // Call FastAPI ML service
         FastApiResponse response = webClient.post()
@@ -53,10 +54,25 @@ public class SentimentService {
         );
         repository.save(entity);
 
-        // Map FastAPI response to SentimentResponse
+        // Map FastAPI response to SentimentResponse with all fields
         return new SentimentResponse(
                 response.prevision(),
-                response.probabilidad()
+                response.probabilidad(),
+                response.probabilidadesDetalle(),
+                response.idioma(),
+                response.timestamp()
         );
+    }
+
+    public List<SentimentAnalysis> getHistory() {
+        return repository.findTop10ByOrderByCreatedAtDesc();
+    }
+
+    public List<SentimentAnalysis> getHistoryByPrediction(String prediction) {
+        return repository.findByPrediction(prediction);
+    }
+
+    public Long countByPrediction(String prediction) {
+        return repository.countByPrediction(prediction);
     }
 }

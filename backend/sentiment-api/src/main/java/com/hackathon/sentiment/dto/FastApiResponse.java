@@ -1,6 +1,7 @@
 package com.hackathon.sentiment.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Map;
 
 /**
  * DTO: Response received from FastAPI ML service
@@ -13,6 +14,12 @@ public record FastApiResponse(
 
     @JsonProperty("probabilidad")
     Double probabilidad,
+
+    @JsonProperty("probabilidades_detalle")
+    Map<String, Double> probabilidadesDetalle,
+
+    @JsonProperty("idioma")
+    String idioma,
 
     @JsonProperty("timestamp")
     String timestamp
