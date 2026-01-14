@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sentiment Analysis</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="container">
+    <h1>Analizis de sentimiento</h1>
+    <p>En el mundo actual, saturado de información, procesamos gigantes cantidades de contenido web a diario. Ya sea para aprender, trabajar o entretenernos, adquirir y procesar información eficientemente se ha vuelto crucial. Las herramientas inteligentes se crearon para abordar este desafío</p>
+    <p>Ingresa tu sentimiento y lo analizaremos con el promedio!</p>
+
+    <textarea
+      id="textInput"
+      placeholder="Escribe aquí tu texto..."
+      rows="4"
+    ></textarea>
+
+    <button id="analyzeBtn">Analizar</button>
+
+    <!-- Loader -->
+    <div id="loader" class="loader" style="display:none">
+      🧠 Analizando sentimiento...
+    </div>
+
+    <!-- Resultado -->
+    <div id="result" class="result" style="display:none">
+      <p><strong>Predicción:</strong> <span id="prediction"></span></p>
+      <p><strong>Probabilidad:</strong> <span id="probability"></span>%</p>
+
+      <div class="bar">
+        <div id="probabilityBar" class="fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
