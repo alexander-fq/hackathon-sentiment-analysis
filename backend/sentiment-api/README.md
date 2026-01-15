@@ -1,7 +1,6 @@
 # 🧠 Sentiment Analysis API – Backend
 
-API REST desarrollada en **Spring Boot 3 + Java 17** para el análisis de sentimiento de texto.
-Este backend expone un endpoint que recibe texto en formato JSON y retorna una predicción de sentimiento con su probabilidad.
+API REST desarrollada en **Spring Boot 3 + Java 17** para el análisis de sentimiento de texto con sistema de autenticación completo.
 
 Proyecto desarrollado como parte del **Hackathon ONE – Análisis de Sentimiento**.
 
@@ -11,36 +10,55 @@ Proyecto desarrollado como parte del **Hackathon ONE – Análisis de Sentimient
 
 - ☕ **Java 17**
 - 🌱 **Spring Boot 3**
+- 🔐 **Spring Security 6**
 - 🌐 Spring Web
 - ✅ Spring Validation (Jakarta Validation)
 - 🗄️ Spring Data JPA
-- 🧪 Base de datos **H2 en memoria** (modo desarrollo)
+- 💾 Base de datos **H2 persistente** (archivo local)
+- 🔒 BCrypt para encriptación de contraseñas
 - 📦 Maven
-- 🐱 IntelliJ IDEA
+- 🎨 Frontend con Tailwind CSS
 
 ---
 
 ## 📂 Estructura del proyecto
 
-sentiment-api
+```
+sentiment-api/
 ├── pom.xml
 ├── README.md
-├── src
-│ ├── main
-│ │ ├── java
-│ │ │ └── com.hackathon.sentiment
-│ │ │ ├── SentimentApiApplication.java
-│ │ │ ├── controller
-│ │ │ │ └── SentimentController.java
-│ │ │ ├── dto
-│ │ │ │ ├── SentimentRequest.java
-│ │ │ │ └── SentimentResponse.java
-│ │ │ └── service
-│ │ │ └── SentimentService.java
-│ │ └── resources
-│ │ └── application.properties
-│ └── test
-└── target
+├── src/
+│   ├── main/
+│   │   ├── java/com/hackathon/sentiment/
+│   │   │   ├── SentimentApiApplication.java
+│   │   │   ├── controller/
+│   │   │   │   ├── SentimentController.java
+│   │   │   │   └── AuthController.java          ✨ NUEVO
+│   │   │   ├── entity/
+│   │   │   │   └── User.java                    ✨ NUEVO
+│   │   │   ├── dto/
+│   │   │   │   ├── SentimentRequest.java
+│   │   │   │   ├── SentimentResponse.java
+│   │   │   │   ├── AuthRequest.java             ✨ NUEVO
+│   │   │   │   └── AuthResponse.java            ✨ NUEVO
+│   │   │   ├── repository/
+│   │   │   │   └── UserRepository.java          ✨ NUEVO
+│   │   │   ├── service/
+│   │   │   │   ├── SentimentService.java
+│   │   │   │   └── UserService.java             ✨ NUEVO
+│   │   │   └── config/
+│   │   │       └── SecurityConfig.java          ✨ NUEVO
+│   │   └── resources/
+│   │       ├── application.properties
+│   │       └── static/                          ✨ NUEVO
+│   │           ├── index.html
+│   │           ├── register.html
+│   │           ├── login.html
+│   │           └── dashboard.html
+│   └── test/
+└── data/                                         ✨ NUEVO
+    └── sentimentdb.mv.db (base de datos persistente)
+```
 
 ---
 
@@ -48,88 +66,216 @@ sentiment-api
 
 ### 1️⃣ Requisitos
 - Java 17 instalado
-- Maven (o usar `mvnw`)
-- IntelliJ IDEA (recomendado)
+- Maven (incluido mvnw.cmd)
 
 ### 2️⃣ Ejecutar la aplicación
 
-Desde IntelliJ:
-- Abrir `SentimentApiApplication`
-- Click en ▶ **Run**
-
-Desde terminal:
+Desde terminal (Windows):
 ```bash
+cd backend/sentiment-api
+.\mvnw.cmd spring-boot:run
+```
+
+Desde terminal (Linux/Mac):
+```bash
+cd backend/sentiment-api
 ./mvnw spring-boot:run
+```
 
-La Aplicacion se levanta en:
-http://localhost:8080
+La aplicación se levanta en: **http://localhost:8080**
 
+---
 
-🔌 Endpoint disponible
-▶ POST /api/sentiment
+## 🔌 Endpoints disponibles
 
+### 🔐 Autenticación
+
+#### POST /api/auth/register
+Registra un nuevo usuario.
+
+**Request:**
+```json
+{
+  "username": "usuario",
+  "email": "usuario@example.com",
+  "password": "miPassword123"
+}
+```
+
+**Response (201 Created):**
+```json
+{
+  "success": true,
+  "message": "Usuario registrado exitosamente",
+  "token": "dXN1YXJpbzoxOjE3MzY5NjU0MzIxMjM=",
+  "userId": 1,
+  "username": "usuario"
+}
+```
+
+#### POST /api/auth/login
+Inicia sesión con credenciales.
+
+**Request:**
+```json
+{
+  "username": "usuario",
+  "password": "miPassword123"
+}
+```
+
+**Response (200 OK):**
+```json
+{
+  "success": true,
+  "message": "Autenticación exitosa",
+  "token": "dXN1YXJpbzoxOjE3MzY5NjU0MzIxMjM=",
+  "userId": 1,
+  "username": "usuario"
+}
+```
+
+#### GET /api/auth/health
+Verifica que el servicio esté funcionando.
+
+**Response:** `Auth service is running`
+
+---
+
+### 📊 Análisis de Sentimientos
+
+#### POST /api/sentiment
 Analiza el sentimiento de un texto enviado.
 
-📥 Request (JSON)
+**Request:**
+```json
 {
   "text": "Me encanta este proyecto"
 }
+```
 
-📤 Response (200 OK)
+**Response (200 OK):**
+```json
 {
   "prediction": "Positivo",
   "probability": 0.95
 }
+```
 
-✅ Validaciones implementadas
+---
 
-El campo text es obligatorio
+## ✅ Validaciones implementadas
 
-Longitud mínima de 3 caracteres
+- El campo text es obligatorio
+- Longitud mínima de 3 caracteres
+- Manejo de errores HTTP:
+  - **400 Bad Request** → Request inválido
+  - **404 Not Found** → Endpoint incorrecto
+  - **405 Method Not Allowed** → Método HTTP incorrecto
 
-Manejo de errores HTTP:
+---
 
-400 Bad Request → Request inválido
+## 💾 Base de datos H2
 
-404 Not Found → Endpoint incorrecto
+### Configuración
 
-405 Method Not Allowed → Método HTTP incorrecto
+La base de datos H2 está configurada en **modo persistente** (archivo local).
 
+**Ubicación:** `./data/sentimentdb.mv.db`
 
-🧪 Base de datos (DEV)
+### Acceso a H2 Console
 
-H2 en memoria
+1. Ir a: **http://localhost:8080/h2-console**
+2. Configurar:
+   - **JDBC URL**: `jdbc:h2:file:./data/sentimentdb;MODE=MySQL;AUTO_SERVER=TRUE`
+   - **Username**: `sa`
+   - **Password**: *(dejar vacío)*
+3. Click en **Connect**
 
-Consola disponible en:
+### Consultas útiles
 
-http://localhost:8080/h2-console
+```sql
+-- Ver todos los usuarios
+SELECT * FROM users;
 
+-- Ver usuario específico
+SELECT * FROM users WHERE username = 'usuario';
 
-Configuración:
+-- Contar usuarios
+SELECT COUNT(*) FROM users;
+```
 
-JDBC URL: jdbc:h2:mem:sentimentdb
+---
 
-Usuario: sa
+## 🌐 Frontend
 
-Password: (vacío)
+### Páginas disponibles
 
-⚠️ Los datos se pierden al reiniciar la app (modo desarrollo).
+- **Inicio**: http://localhost:8080
+- **Registro**: http://localhost:8080/register.html
+- **Login**: http://localhost:8080/login.html
+- **Dashboard**: http://localhost:8080/dashboard.html (requiere autenticación)
 
-🗺️ Roadmap (Backend)
+### Flujo de usuario
 
- Crear proyecto Spring Boot
+1. Usuario accede a la página de inicio
+2. Click en **Registrarse**
+3. Completa el formulario (username, email, password)
+4. Sistema valida y crea usuario con contraseña encriptada
+5. Redirección automática al Dashboard
+6. Usuario puede cerrar sesión y volver a hacer login
 
- Configurar validaciones
+---
 
- Endpoint /api/sentiment
+## 🔐 Seguridad
 
- Manejo de errores HTTP
+- **Contraseñas encriptadas** con BCryptPasswordEncoder
+- **Spring Security 6** con SecurityFilterChain
+- **CORS configurado** para desarrollo local
+- **Tokens simples** en Base64 (username:userId:timestamp)
+- **Validaciones** en backend y frontend
 
- Persistencia de predicciones (opcional)
+---
 
- Integración con modelo ML real
+## 🧪 Testing con cURL
 
- Documentación con Swagger
+### Registrar usuario
+```bash
+curl -X POST http://localhost:8080/api/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"username":"testuser","email":"test@example.com","password":"Test123"}'
+```
+
+### Login
+```bash
+curl -X POST http://localhost:8080/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"username":"testuser","password":"Test123"}'
+```
+
+---
+
+## 🗺️ Roadmap
+
+### ✅ Completado
+- [x] Crear proyecto Spring Boot
+- [x] Configurar validaciones
+- [x] Endpoint /api/sentiment
+- [x] Manejo de errores HTTP
+- [x] **Sistema de autenticación completo**
+- [x] **Base de datos H2 persistente**
+- [x] **Frontend con registro y login**
+- [x] **Spring Security 6**
+
+### 🔄 Próximas mejoras
+- [ ] Implementar JWT (JSON Web Tokens)
+- [ ] Agregar refresh tokens
+- [ ] Validación de email mediante enlace
+- [ ] Recuperación de contraseña
+- [ ] Roles y permisos (ADMIN, USER)
+- [ ] Integración con modelo ML real
+- [ ] Documentación con Swagger
+- [ ] Migrar a PostgreSQL en producción
 
 👥 Equipo
 
