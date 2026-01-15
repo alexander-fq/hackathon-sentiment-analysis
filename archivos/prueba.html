@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html class="dark scroll-smooth" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Premium Hackathon Sentiment Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1313ec",
+                        "background-dark": "#0a0a0c",
+                        "accent-purple": "#6d28d9",
+                        "sentiment-pos": "#10b981",
+                        "sentiment-neu": "#64748b",
+                        "sentiment-neg": "#ef4444",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .hero-glow {
+            background: radial-gradient(circle at 50% 50%, rgba(19, 19, 236, 0.15) 0%, transparent 60%);
+        }
+        .gauge-conic {
+            background: conic-gradient(#10b981 95.2%, transparent 0deg);
+        }
+    </style>
+</head>
+<body class="bg-background-dark font-display text-slate-100 selection:bg-primary selection:text-white">
+<div class="relative flex min-h-screen flex-col overflow-x-hidden">
+<header class="sticky top-0 z-50 w-full border-b border-white/5 bg-background-dark/80 backdrop-blur-md px-6 lg:px-20 py-4">
+<div class="mx-auto flex max-w-7xl items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-white">
+<span class="material-symbols-outlined">analytics</span>
+</div>
+<h2 class="text-xl font-black tracking-tight">Sentimientos <span class="text-primary">v2.0</span></h2>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-sm font-medium hover:text-primary transition-colors cursor-pointer" href="#demo">Análisis</a>
+<a class="text-sm font-medium hover:text-primary transition-colors cursor-pointer" href="#features">Capacidades</a>
+<a class="text-sm font-medium hover:text-primary transition-colors cursor-pointer" href="#architecture">Arquitectura</a>
+<a class="text-sm font-medium hover:text-primary transition-colors cursor-pointer" href="#endpoints">API</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="text-sm font-bold text-primary/80 transition-all hover:text-primary hover:underline underline-offset-4">
+                        Iniciar Sesión
+                    </button>
+<button class="flex items-center justify-center rounded-lg bg-white/5 border border-white/10 px-5 py-2 text-sm font-bold transition-all hover:bg-white/10">
+                        Github
+                    </button>
+</div>
+</div>
+</header>
+<main class="flex-1">
+<section class="relative px-6 pt-24 pb-16 lg:px-20 hero-glow">
+<div class="mx-auto max-w-5xl text-center">
+<div class="mb-8 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-primary">
+<span class="relative flex h-2 w-2">
+<span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex h-2 w-2 rounded-full bg-primary"></span>
+</span>
+                        Hackathon 2026 - v2.0 Released
+                    </div>
+<h1 class="mb-6 text-5xl font-black leading-tight tracking-tighter md:text-7xl">
+                        Análisis de Sentimientos <br/>
+<span class="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent italic">Inteligente</span>
+</h1>
+<p class="mx-auto mb-10 max-w-2xl text-lg text-slate-400">
+                        Potenciado por una arquitectura robusta de <span class="text-white font-semibold">Spring Boot</span>, la agilidad de <span class="text-white font-semibold">FastAPI</span> y modelos de <span class="text-white font-semibold">scikit-learn</span>.
+                    </p>
+</div>
+</section>
+<section class="px-6 pb-20 lg:px-20" id="demo">
+<div class="mx-auto max-w-5xl">
+<div class="mb-8 text-center">
+<h2 class="text-3xl font-bold tracking-tight">Análisis de sentimiento</h2>
+</div>
+<div class="relative rounded-3xl border border-white/10 bg-white/[0.02] p-8 shadow-2xl backdrop-blur-xl">
+<div class="absolute right-8 top-8 z-10 flex gap-2">
+<button id="lang-es" class="flex items-center gap-2 rounded-full bg-primary px-4 py-1.5 text-xs font-bold text-white shadow-lg shadow-primary/30 transition-all hover:scale-105 cursor-pointer">
+<span class="material-symbols-outlined text-sm">translate</span>
+                                Español
+                            </button>
+<button id="lang-en" class="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-bold text-slate-400 transition-all hover:bg-white/10 hover:text-white hover:scale-105 cursor-pointer">
+<span class="material-symbols-outlined text-sm">language</span>
+                                English
+                            </button>
+</div>
+<div class="relative mt-10">
+<textarea id="text-input" class="min-h-[220px] w-full resize-none rounded-2xl border border-white/5 bg-black/40 p-8 text-xl text-slate-200 placeholder:text-slate-600 focus:border-primary/50 focus:outline-none focus:ring-4 focus:ring-primary/10 transition-all" placeholder="Introduce el texto que deseas analizar para detectar su carga emocional..."></textarea>
+</div>
+<div class="mt-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+<div class="flex items-center gap-2 text-sm text-slate-500">
+<span class="flex h-2.5 w-2.5 rounded-full bg-sentiment-pos shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span>
+                                Listo para procesar
+                            </div>
+<button id="analyze-btn" class="w-full sm:w-auto flex h-14 px-10 items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-primary to-accent-purple text-lg font-bold text-white shadow-2xl shadow-primary/40 transition-all hover:scale-[1.02] active:scale-[0.98]">
+<span class="material-symbols-outlined">analytics</span>
+                                Analizar Sentimiento
+                            </button>
+</div>
+<div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="glass rounded-2xl p-6 text-center border-white/5">
+<span class="text-xs font-bold text-slate-500 uppercase tracking-widest block mb-4">Resultado</span>
+<!-- Emoji dinámico según sentimiento:
+     POSITIVO: 😊 (happy)
+     NEUTRAL: 😐 (neutral face)
+     NEGATIVO: 😔 (sad/disappointed) -->
+<div id="sentiment-emoji" class="text-5xl mb-2">😊</div>
+<div id="sentiment-label" class="text-2xl font-black text-sentiment-pos">POSITIVO</div>
+</div>
+<div class="glass rounded-2xl p-6 text-center border-white/5">
+<span class="text-xs font-bold text-slate-500 uppercase tracking-widest block mb-4">Confianza</span>
+<div class="relative mx-auto h-24 w-24">
+<div class="h-24 w-24 rounded-full border-8 border-white/5"></div>
+<div id="confidence-ring" class="absolute inset-0 h-24 w-24 rounded-full border-8 border-transparent border-t-sentiment-pos border-r-sentiment-pos rotate-45"></div>
+<div class="absolute inset-0 flex items-center justify-center flex-col">
+<span id="confidence-value" class="text-xl font-bold">95.2%</span>
+</div>
+</div>
+</div>
+<div class="glass rounded-2xl p-6 border-white/5 flex flex-col justify-center">
+<span class="text-xs font-bold text-slate-500 uppercase tracking-widest block mb-4">Probabilidades</span>
+<div class="space-y-3">
+<div>
+<div class="flex justify-between text-[10px] mb-1 font-bold"><span>POS</span><span id="prob-pos-text">95%</span></div>
+<div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+<div id="prob-pos-bar" class="h-full bg-sentiment-pos w-[95%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-[10px] mb-1 font-bold"><span>NEU</span><span id="prob-neu-text">4%</span></div>
+<div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+<div id="prob-neu-bar" class="h-full bg-slate-500 w-[4%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-[10px] mb-1 font-bold"><span>NEG</span><span id="prob-neg-text">1%</span></div>
+<div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+<div id="prob-neg-bar" class="h-full bg-sentiment-neg w-[1%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="px-6 py-20 lg:px-20" id="features">
+<div class="mx-auto max-w-7xl">
+<div class="mb-12">
+<h2 class="text-3xl font-bold tracking-tight">Capacidades del Sistema</h2>
+<div class="mt-2 h-1 w-20 rounded-full bg-primary"></div>
+</div>
+<div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+<div class="glass flex flex-col gap-5 rounded-2xl p-8 transition-all hover:-translate-y-2 hover:bg-white/[0.05] border-white/5">
+<div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+<span class="material-symbols-outlined text-3xl">public</span>
+</div>
+<h3 class="text-xl font-bold">Soporte Multilingüe</h3>
+<p class="text-slate-400 leading-relaxed">Detección y análisis automático en múltiples lenguajes con pre-procesamiento optimizado para variaciones regionales.</p>
+</div>
+<div class="glass flex flex-col gap-5 rounded-2xl p-8 transition-all hover:-translate-y-2 hover:bg-white/[0.05] border-white/5">
+<div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-sentiment-pos/10 text-sentiment-pos">
+<span class="material-symbols-outlined text-3xl">mood</span>
+</div>
+<h3 class="text-xl font-bold">Clasificación Tri-Clase</h3>
+<p class="text-slate-400 leading-relaxed">Categorización precisa entre Positivo, Neutral y Negativo utilizando algoritmos de aprendizaje supervisado.</p>
+</div>
+<div class="glass flex flex-col gap-5 rounded-2xl p-8 transition-all hover:-translate-y-2 hover:bg-white/[0.05] border-white/5">
+<div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-accent-purple/10 text-accent-purple">
+<span class="material-symbols-outlined text-3xl">api</span>
+</div>
+<h3 class="text-xl font-bold">4 Endpoints Profesionales</h3>
+<p class="text-slate-400 leading-relaxed">Interfaz RESTful completa diseñada para integraciones de alto rendimiento y escalabilidad horizontal.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="px-6 py-24 lg:px-20 bg-white/[0.01] border-y border-white/5" id="architecture">
+<div class="mx-auto max-w-7xl text-center">
+<h2 class="mb-16 text-3xl font-bold tracking-tight">Flujo de Datos del Sistema</h2>
+<div class="flex flex-col items-center justify-center gap-10 lg:flex-row lg:gap-6">
+<div class="group relative z-10 flex w-52 flex-col items-center gap-4 rounded-2xl border border-white/10 bg-black/40 p-6 shadow-2xl transition-all hover:border-white/20">
+<div class="flex h-14 w-14 items-center justify-center rounded-full bg-slate-800 text-slate-300">
+<span class="material-symbols-outlined text-3xl">terminal</span>
+</div>
+<div class="text-center">
+<h4 class="font-bold text-sm">Frontend</h4>
+<p class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Client Interface</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary/40 text-3xl lg:rotate-0 rotate-90">arrow_forward</span>
+<div class="group relative z-10 flex w-60 flex-col items-center gap-4 rounded-2xl border border-primary/50 bg-primary/5 p-8 shadow-2xl shadow-primary/10 transition-all">
+<div class="flex h-16 w-16 items-center justify-center rounded-full bg-primary/20 text-primary">
+<span class="material-symbols-outlined text-3xl">settings_ethernet</span>
+</div>
+<div class="text-center">
+<h4 class="font-bold text-lg">Spring Boot 3</h4>
+<p class="text-[10px] text-primary/70 uppercase tracking-widest mt-1">API Core &amp; Gateway</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-accent-purple/40 text-3xl lg:rotate-0 rotate-90">sync_alt</span>
+<div class="group relative z-10 flex w-60 flex-col items-center gap-4 rounded-2xl border border-accent-purple/50 bg-accent-purple/5 p-8 shadow-2xl shadow-accent-purple/10 transition-all">
+<div class="flex h-16 w-16 items-center justify-center rounded-full bg-accent-purple/20 text-accent-purple">
+<span class="material-symbols-outlined text-3xl">neurology</span>
+</div>
+<div class="text-center">
+<h4 class="font-bold text-lg">FastAPI ML</h4>
+<p class="text-[10px] text-accent-purple/70 uppercase tracking-widest mt-1">Inference Engine</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-700 text-3xl lg:rotate-0 rotate-90">arrow_forward</span>
+<div class="group relative z-10 flex w-52 flex-col items-center gap-4 rounded-2xl border border-white/10 bg-black/40 p-6 shadow-2xl transition-all">
+<div class="flex h-14 w-14 items-center justify-center rounded-full bg-slate-800 text-slate-300">
+<span class="material-symbols-outlined text-3xl">database</span>
+</div>
+<div class="text-center">
+<h4 class="font-bold text-sm">H2 Database</h4>
+<p class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">Persistence</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="px-6 py-20 lg:px-20" id="endpoints">
+<div class="mx-auto max-w-7xl">
+<div class="mb-10 flex items-center justify-between">
+<h2 class="text-3xl font-bold">Endpoints de la API</h2>
+<span class="text-sm font-mono text-slate-500">Host: localhost:8080</span>
+</div>
+<div class="overflow-hidden rounded-2xl border border-white/5 bg-white/[0.02]">
+<table class="w-full text-left">
+<thead class="bg-white/5 border-b border-white/5">
+<tr>
+<th class="px-6 py-5 text-xs font-bold uppercase tracking-widest text-slate-500">Método</th>
+<th class="px-6 py-5 text-xs font-bold uppercase tracking-widest text-slate-500">Endpoint</th>
+<th class="px-6 py-5 text-xs font-bold uppercase tracking-widest text-slate-500">Descripción</th>
+<th class="px-6 py-5 text-xs font-bold uppercase tracking-widest text-slate-500 text-right">Scope</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-white/5">
+<tr class="hover:bg-white/[0.02] transition-colors">
+<td class="px-6 py-4"><span class="rounded-md bg-primary/20 px-3 py-1 text-[10px] font-black text-primary">POST</span></td>
+<td class="px-6 py-4 font-mono text-sm text-slate-300">/api/sentiment</td>
+<td class="px-6 py-4 text-sm text-slate-400">Analiza un texto en tiempo real.</td>
+<td class="px-6 py-4 text-right text-[10px] text-slate-500">ANALYZE</td>
+</tr>
+<tr class="hover:bg-white/[0.02] transition-colors">
+<td class="px-6 py-4"><span class="rounded-md bg-sentiment-pos/20 px-3 py-1 text-[10px] font-black text-sentiment-pos">GET</span></td>
+<td class="px-6 py-4 font-mono text-sm text-slate-300">/api/sentiment/history</td>
+<td class="px-6 py-4 text-sm text-slate-400">Recupera el historial de predicciones persistidas.</td>
+<td class="px-6 py-4 text-right text-[10px] text-slate-500">HISTORY</td>
+</tr>
+<tr class="hover:bg-white/[0.02] transition-colors">
+<td class="px-6 py-4"><span class="rounded-md bg-sentiment-pos/20 px-3 py-1 text-[10px] font-black text-sentiment-pos">GET</span></td>
+<td class="px-6 py-4 font-mono text-sm text-slate-300">/api/sentiment/history/{prediction}</td>
+<td class="px-6 py-4 text-sm text-slate-400">Búsqueda filtrada por categoría de sentimiento.</td>
+<td class="px-6 py-4 text-right text-[10px] text-slate-500">QUERY</td>
+</tr>
+<tr class="hover:bg-white/[0.02] transition-colors">
+<td class="px-6 py-4"><span class="rounded-md bg-sentiment-pos/20 px-3 py-1 text-[10px] font-black text-sentiment-pos">GET</span></td>
+<td class="px-6 py-4 font-mono text-sm text-slate-300">/api/sentiment/statistics</td>
+<td class="px-6 py-4 text-sm text-slate-400">Estadísticas agregadas del sistema.</td>
+<td class="px-6 py-4 text-right text-[10px] text-slate-500">STATS</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section class="px-6 py-24 lg:px-20 bg-gradient-to-b from-transparent to-primary/5">
+<div class="mx-auto max-w-7xl grid lg:grid-cols-2 gap-16 items-start">
+<div>
+<h3 class="mb-8 text-2xl font-bold">Esquema de Respuesta</h3>
+<div class="rounded-2xl bg-[#010101] p-8 shadow-2xl border border-white/5 font-mono text-sm">
+<div class="mb-6 flex items-center justify-between border-b border-white/10 pb-4">
+<div class="flex gap-2">
+<div class="h-3 w-3 rounded-full bg-red-500/30"></div>
+<div class="h-3 w-3 rounded-full bg-yellow-500/30"></div>
+<div class="h-3 w-3 rounded-full bg-green-500/30"></div>
+</div>
+<span class="text-[10px] text-slate-600 uppercase tracking-widest">SentimentResponse.json</span>
+</div>
+<pre class="leading-relaxed"><span class="text-accent-purple">{</span>
+  <span class="text-blue-400">"text"</span>: <span class="text-sentiment-pos">"¡Este proyecto es increíble!"</span>,
+  <span class="text-blue-400">"prediction"</span>: <span class="text-sentiment-pos">"Positivo"</span>,
+  <span class="text-blue-400">"probability"</span>: <span class="text-amber-400">0.9952</span>,
+  <span class="text-blue-400">"probabilitiesDetail"</span>: <span class="text-accent-purple">{</span>
+    <span class="text-blue-400">"Positivo"</span>: <span class="text-amber-400">0.9952</span>,
+    <span class="text-blue-400">"Neutro"</span>: <span class="text-amber-400">0.0038</span>,
+    <span class="text-blue-400">"Negativo"</span>: <span class="text-amber-400">0.001</span>
+  <span class="text-accent-purple">}</span>,
+  <span class="text-blue-400">"language"</span>: <span class="text-sentiment-pos">"es"</span>,
+  <span class="text-blue-400">"timestamp"</span>: <span class="text-sentiment-pos">"2026-01-12T15:30:00"</span>
+<span class="text-accent-purple">}</span></pre>
+</div>
+</div>
+<div class="flex flex-col gap-10">
+<div>
+<h3 class="mb-8 text-2xl font-bold">Garantías del Sistema</h3>
+<div class="space-y-6">
+<div class="flex items-center gap-4 group">
+<div class="flex h-8 w-8 items-center justify-center rounded-full bg-sentiment-pos/20 text-sentiment-pos transition-all group-hover:scale-110">
+<span class="material-symbols-outlined text-sm">check</span>
+</div>
+<span class="text-slate-300 font-medium">Validación de entrada sanitizada (XSS Protection)</span>
+</div>
+<div class="flex items-center gap-4 group">
+<div class="flex h-8 w-8 items-center justify-center rounded-full bg-sentiment-pos/20 text-sentiment-pos transition-all group-hover:scale-110">
+<span class="material-symbols-outlined text-sm">check</span>
+</div>
+<span class="text-slate-300 font-medium">Manejo de excepciones global (Spring ControllerAdvice)</span>
+</div>
+<div class="flex items-center gap-4 group">
+<div class="flex h-8 w-8 items-center justify-center rounded-full bg-sentiment-pos/20 text-sentiment-pos transition-all group-hover:scale-110">
+<span class="material-symbols-outlined text-sm">check</span>
+</div>
+<span class="text-slate-300 font-medium">Timeout de inferencia de ML controlado &lt; 500ms</span>
+</div>
+</div>
+</div>
+<div class="space-y-6">
+<div>
+<div class="mb-2 flex justify-between text-xs font-bold uppercase tracking-widest text-slate-500">
+<span>Unit Tests (JUnit 5)</span>
+<span class="text-sentiment-pos">100%</span>
+</div>
+<div class="h-1.5 w-full rounded-full bg-white/5 overflow-hidden">
+<div class="h-full w-full bg-gradient-to-r from-sentiment-pos to-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.3)]"></div>
+</div>
+</div>
+<div>
+<div class="mb-2 flex justify-between text-xs font-bold uppercase tracking-widest text-slate-500">
+<span>Integración API</span>
+<span class="text-sentiment-pos">100%</span>
+</div>
+<div class="h-1.5 w-full rounded-full bg-white/5 overflow-hidden">
+<div class="h-full w-full bg-gradient-to-r from-sentiment-pos to-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.3)]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="px-6 py-20 lg:px-20 overflow-hidden" id="tech">
+<div class="mx-auto max-w-7xl">
+<h2 class="mb-14 text-center text-xs font-black uppercase tracking-[0.3em] text-slate-600">Ecosistema Tecnológico</h2>
+<div class="flex flex-wrap items-center justify-center gap-x-12 gap-y-8 opacity-40 transition-all hover:opacity-100">
+<span class="text-xl font-black italic">Java 17</span>
+<span class="text-xl font-black italic">Spring Boot</span>
+<span class="text-xl font-black italic">FastAPI</span>
+<span class="text-xl font-black italic">Python 3.13</span>
+<span class="text-xl font-black italic">scikit-learn</span>
+<span class="text-xl font-black italic">H2 Database</span>
+<span class="text-xl font-black italic">Maven</span>
+</div>
+</div>
+</section>
+</main>
+<footer class="border-t border-white/5 bg-background-dark px-6 py-16 lg:px-20">
+<div class="mx-auto max-w-7xl">
+<div class="grid grid-cols-1 gap-12 md:grid-cols-3 mb-16">
+<div class="flex flex-col gap-4">
+<div class="text-4xl font-black text-white">92%</div>
+<div class="text-xs font-bold uppercase tracking-widest text-primary">Precisión del Modelo</div>
+<p class="text-xs text-slate-500 leading-relaxed">Entrenado con datasets equilibrados para garantizar la imparcialidad en la detección de sentimientos.</p>
+</div>
+<div class="flex flex-col gap-4">
+<div class="text-4xl font-black text-white">&lt;200ms</div>
+<div class="text-xs font-bold uppercase tracking-widest text-primary">Tiempo de Respuesta</div>
+<p class="text-xs text-slate-500 leading-relaxed">Latencia optimizada mediante comunicación binaria y pre-procesamiento asíncrono.</p>
+</div>
+<div class="flex flex-col gap-4">
+<div class="text-4xl font-black text-white">0</div>
+<div class="text-xs font-bold uppercase tracking-widest text-primary">Vulnerabilidades</div>
+<p class="text-xs text-slate-500 leading-relaxed">Análisis estático de código y escaneo de dependencias integrado en el pipeline de CI/CD.</p>
+</div>
+</div>
+<div class="flex flex-col items-center justify-between gap-6 border-t border-white/5 pt-8 md:flex-row">
+<div class="flex items-center gap-3">
+<div class="h-8 w-8 items-center justify-center rounded-lg bg-primary/20 text-primary flex">
+<span class="material-symbols-outlined text-lg">analytics</span>
+</div>
+<p class="text-sm font-bold text-slate-400">© 2026 Sentimientos v2.0</p>
+</div>
+<div class="flex gap-8">
+<a class="text-xs font-bold text-slate-500 hover:text-white transition-colors" href="#">DOCUMENTACIÓN</a>
+<a class="text-xs font-bold text-slate-500 hover:text-white transition-colors" href="#">GITHUB REPO</a>
+<a class="text-xs font-bold text-slate-500 hover:text-white transition-colors" href="#">PRIVACY POLICY</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+
+<script>
+// Configuración de la API
+const API_URL = 'http://localhost:8081/api/sentiment';
+
+// Elementos del DOM
+const textInput = document.getElementById('text-input');
+const analyzeBtn = document.getElementById('analyze-btn');
+const langEsBtn = document.getElementById('lang-es');
+const langEnBtn = document.getElementById('lang-en');
+
+// Variable global para el idioma seleccionado
+let selectedLanguage = 'es';
+
+// ============================================
+// GESTIÓN DE IDIOMA
+// ============================================
+
+// Función para cambiar el idioma
+function setLanguage(lang) {
+    selectedLanguage = lang;
+
+    if (lang === 'es') {
+        // Español activo
+        langEsBtn.className = 'flex items-center gap-2 rounded-full bg-primary px-4 py-1.5 text-xs font-bold text-white shadow-lg shadow-primary/30 transition-all hover:scale-105 cursor-pointer';
+        langEnBtn.className = 'flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-bold text-slate-400 transition-all hover:bg-white/10 hover:text-white hover:scale-105 cursor-pointer';
+    } else {
+        // Inglés activo
+        langEnBtn.className = 'flex items-center gap-2 rounded-full bg-primary px-4 py-1.5 text-xs font-bold text-white shadow-lg shadow-primary/30 transition-all hover:scale-105 cursor-pointer';
+        langEsBtn.className = 'flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-bold text-slate-400 transition-all hover:bg-white/10 hover:text-white hover:scale-105 cursor-pointer';
+    }
+}
+
+// Event listeners para los botones de idioma
+langEsBtn.addEventListener('click', () => setLanguage('es'));
+langEnBtn.addEventListener('click', () => setLanguage('en'));
+
+// ============================================
+// ANÁLISIS DE SENTIMIENTO
+// ============================================
+
+// Función para actualizar el emoji y label según el sentimiento
+function updateSentimentDisplay(sentiment, confidence) {
+    const emojiElement = document.getElementById('sentiment-emoji');
+    const labelElement = document.getElementById('sentiment-label');
+
+    const sentimentConfig = {
+        'POSITIVO': {
+            emoji: '😊',
+            label: 'POSITIVO',
+            colorClass: 'text-sentiment-pos'
+        },
+        'Positivo': {
+            emoji: '😊',
+            label: 'POSITIVO',
+            colorClass: 'text-sentiment-pos'
+        },
+        'NEUTRAL': {
+            emoji: '😐',
+            label: 'NEUTRAL',
+            colorClass: 'text-sentiment-neu'
+        },
+        'Neutro': {
+            emoji: '😐',
+            label: 'NEUTRAL',
+            colorClass: 'text-sentiment-neu'
+        },
+        'NEGATIVO': {
+            emoji: '😔',
+            label: 'NEGATIVO',
+            colorClass: 'text-sentiment-neg'
+        },
+        'Negativo': {
+            emoji: '😔',
+            label: 'NEGATIVO',
+            colorClass: 'text-sentiment-neg'
+        }
+    };
+
+    const config = sentimentConfig[sentiment];
+    if (config) {
+        emojiElement.textContent = config.emoji;
+        labelElement.textContent = config.label;
+        labelElement.className = `text-2xl font-black ${config.colorClass}`;
+    }
+}
+
+// Función para actualizar las probabilidades
+function updateProbabilities(probabilities) {
+    // Convertir probabilidades a porcentajes
+    const posPercent = Math.round(probabilities.Positivo * 100);
+    const neuPercent = Math.round(probabilities.Neutro * 100);
+    const negPercent = Math.round(probabilities.Negativo * 100);
+
+    // Actualizar textos
+    document.getElementById('prob-pos-text').textContent = `${posPercent}%`;
+    document.getElementById('prob-neu-text').textContent = `${neuPercent}%`;
+    document.getElementById('prob-neg-text').textContent = `${negPercent}%`;
+
+    // Actualizar barras
+    document.getElementById('prob-pos-bar').style.width = `${posPercent}%`;
+    document.getElementById('prob-neu-bar').style.width = `${neuPercent}%`;
+    document.getElementById('prob-neg-bar').style.width = `${negPercent}%`;
+}
+
+// Función para actualizar confianza
+function updateConfidence(probability) {
+    const confidencePercent = (probability * 100).toFixed(1);
+    document.getElementById('confidence-value').textContent = `${confidencePercent}%`;
+}
+
+// Función principal para analizar sentimiento
+async function analyzeSentiment() {
+    const text = textInput.value.trim();
+
+    if (!text) {
+        alert('Por favor, introduce un texto para analizar');
+        return;
+    }
+
+    // Deshabilitar botón mientras se procesa
+    analyzeBtn.disabled = true;
+    analyzeBtn.innerHTML = '<span class="material-symbols-outlined animate-spin">progress_activity</span> Analizando...';
+
+    try {
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                text: text,
+                language: selectedLanguage
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error('Error en la respuesta del servidor');
+        }
+
+        const data = await response.json();
+
+        // Actualizar UI con los resultados
+        updateSentimentDisplay(data.prediction, data.probability);
+        updateConfidence(data.probability);
+        updateProbabilities(data.probabilitiesDetail);
+
+        console.log('Respuesta completa:', data);
+
+    } catch (error) {
+        console.error('Error al analizar:', error);
+        alert('Error al conectar con el servidor. Asegúrate de que la API esté corriendo en http://localhost:8081');
+    } finally {
+        // Rehabilitar botón
+        analyzeBtn.disabled = false;
+        analyzeBtn.innerHTML = '<span class="material-symbols-outlined">analytics</span> Analizar Sentimiento';
+    }
+}
+
+// Event listener para el botón
+analyzeBtn.addEventListener('click', analyzeSentiment);
+
+// Event listener para Enter en el textarea (Ctrl+Enter o Cmd+Enter)
+textInput.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        analyzeSentiment();
+    }
+});
+</script>
+
+</body></html>

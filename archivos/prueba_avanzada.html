@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sentimientos v3.0 - Emotions AI Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#07b6d5",
+              "accent-violet": "#8b5cf6",
+              "background-light": "#f5f8f8",
+              "background-dark": "#050816",
+              "slate-dark": "#1b2627",
+            },
+            fontFamily: {
+              "display": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(15, 32, 35, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glow-primary {
+            box-shadow: 0 0 20px rgba(7, 182, 213, 0.3);
+        }
+        .glow-button {
+            box-shadow: 0 4px 15px rgba(7, 182, 213, 0.4), 0 4px 15px rgba(139, 92, 246, 0.3);
+        }
+        .pulsing-badge {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: .7; transform: scale(1.05); }
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-white min-h-screen">
+<!-- TopNavBar -->
+<header class="sticky top-0 z-50 border-b border-white/10 bg-background-dark/80 backdrop-blur-md px-6 py-4 lg:px-20">
+<div class="max-w-[1400px] mx-auto flex items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-primary/20 rounded-lg text-primary">
+<span class="material-symbols-outlined text-3xl">psychology</span>
+</div>
+<div>
+<h2 class="text-white text-xl font-extrabold leading-tight tracking-tight">Sentimientos v3.0</h2>
+<p class="text-primary italic text-xs font-medium tracking-wider uppercase">Emotions AI</p>
+</div>
+</div>
+<nav class="hidden md:flex items-center gap-10">
+<a class="text-white/90 hover:text-primary text-sm font-semibold transition-colors" href="#">Dashboard</a>
+<a class="text-white/40 hover:text-primary text-sm font-semibold transition-colors" href="#">Análisis</a>
+<a class="text-white/40 hover:text-primary text-sm font-semibold transition-colors" href="#">Exportar</a>
+<a class="text-white/40 hover:text-primary text-sm font-semibold transition-colors" href="#">Alertas</a>
+</nav>
+<div class="flex items-center gap-6">
+<div class="pulsing-badge flex items-center gap-2 bg-primary/10 border border-primary/30 px-3 py-1.5 rounded-full">
+<div class="size-2 rounded-full bg-primary shadow-[0_0_8px_#07b6d5]"></div>
+<span class="text-primary text-[10px] font-black tracking-widest uppercase">6 EMOCIONES</span>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary/50" data-alt="User profile avatar portrait" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCLTFGpdhGbIz6XXAjXDV9S_aiytJZ7N2wSF-srPU-gHsZw-ezBOyUOiXhxlCTME-slJiCeK9Pw9eEmPhqFIcZocdm0M7tNJ8AgxjEr4FczdbBb1-7crrv7ifAUuNPsHxmXSOavFlY42_pxh9-IpKovxGP28V64gAJESmrkP91gNJqJ3uR6ptogXlTuxZgb8yL0CJajW8z_QVUfX-1wHtgVOnex9wgZU9iwwcI4E9Z96RFkPM8UBx-uYsxP0_yPITzaJQBubEs9lR3k");'></div>
+</div>
+</div>
+</header>
+<main class="max-w-[1200px] mx-auto px-6 py-10 flex flex-col gap-10">
+<!-- Hero Section & Composer -->
+<section class="glass-card rounded-xl overflow-hidden p-8 lg:p-12 relative">
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-accent-violet to-primary"></div>
+<div class="text-center mb-10">
+<h1 class="text-4xl lg:text-5xl font-black tracking-tight mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-primary/50">
+                    Análisis de Emociones Avanzado
+                </h1>
+<div class="flex justify-center gap-3 mt-6">
+<button class="flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-primary to-accent-violet text-background-dark text-sm font-bold glow-primary">
+<span class="material-symbols-outlined text-lg">language</span>
+                        Español
+                    </button>
+<button class="flex items-center gap-2 px-6 py-2.5 rounded-full bg-white/5 border border-white/10 text-white/60 text-sm font-bold hover:bg-white/10 transition-all">
+                        English
+                    </button>
+</div>
+</div>
+<!-- Composer Area -->
+<div class="relative group">
+<div class="flex flex-col bg-slate-dark/50 border border-white/10 rounded-xl overflow-hidden focus-within:border-primary/50 transition-all shadow-inner">
+<div class="flex items-start p-4 gap-4 border-b border-white/5">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 shrink-0 border border-white/20" data-alt="Avatar icon for chat interface" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCaP6XMrDjme1g3qhkITB5e0gbxx8D7ro1vqAVgqqvIpfmAgG_fEA5RSIr8FnYALWqnXBM9Uimukz2qVMZRE36bYJyZ2e59hnp0_8d5Cse8J1LwX4xZos21nWa8eB5NR6OW6Pz1emDk8mr_f1cTwhZpfzRT1mUisTGgKeB4VRQTCOD0-RHKD1lp8kGn6lM2tmEksLGqn9AXE6AUF0ORr-zu_hFc7G6M0nV65uC4lOpW9UteXWG5ZPvl_ZTxMLiFW3DJH6UoBBSlBpwV");'></div>
+<textarea class="w-full bg-transparent border-none focus:ring-0 text-lg leading-relaxed text-white placeholder:text-white/20 resize-none h-48" placeholder="Escribe o pega el texto para analizar sentimientos..."></textarea>
+</div>
+<div class="flex items-center justify-between p-4 bg-black/20">
+<div class="flex items-center gap-2">
+<button class="p-2 text-white/40 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">mic</span>
+</button>
+<button class="p-2 text-white/40 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">upload_file</span>
+</button>
+<button class="p-2 text-white/40 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+<button class="glow-button px-8 py-3 bg-gradient-to-r from-primary to-accent-violet rounded-xl text-background-dark font-bold text-base flex items-center gap-2 hover:scale-[1.02] active:scale-95 transition-all">
+<span>Analizar Emociones</span>
+<span class="material-symbols-outlined">bolt</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Stats Section -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="glass-card p-6 rounded-xl border-l-4 border-l-primary">
+<p class="text-white/60 text-sm font-medium uppercase tracking-widest mb-2">Emoción Dominante</p>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-black">Joy 😊</span>
+<span class="text-primary text-xl font-bold">85%</span>
+</div>
+</div>
+<div class="glass-card p-6 rounded-xl border-l-4 border-l-accent-violet">
+<p class="text-white/60 text-sm font-medium uppercase tracking-widest mb-2">Sentimiento General</p>
+<div class="flex items-center gap-3">
+<span class="text-3xl font-black">Positivo</span>
+<div class="px-3 py-1 bg-primary/20 text-primary rounded-full text-sm font-bold border border-primary/30">😊 Strong</div>
+</div>
+</div>
+<div class="glass-card p-6 rounded-xl border-l-4 border-l-white/20">
+<p class="text-white/60 text-sm font-medium uppercase tracking-widest mb-2">Confianza del Modelo</p>
+<div class="flex items-center gap-4">
+<div class="relative size-12">
+<svg class="size-full" viewbox="0 0 36 36">
+<path class="text-white/10" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3"></path>
+<path class="text-primary" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="95, 100" stroke-linecap="round" stroke-width="3"></path>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center text-[10px] font-bold">95%</div>
+</div>
+<span class="text-3xl font-black tracking-tighter">95.2%</span>
+</div>
+</div>
+</section>
+<!-- Visualization Section -->
+<section class="flex flex-col lg:flex-row gap-6">
+<!-- Radar Chart Simulation -->
+<div class="flex-1 glass-card p-8 rounded-xl min-h-[450px]">
+<div class="flex items-center justify-between mb-8">
+<h3 class="text-xl font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">radar</span>
+                        Perfil Emocional
+                    </h3>
+<span class="text-xs text-white/40 uppercase tracking-tighter font-bold">Distribución Hexagonal</span>
+</div>
+<div class="relative flex items-center justify-center h-full">
+<!-- Abstract Visualization Representation -->
+<div class="relative size-64 lg:size-80 flex items-center justify-center">
+<!-- Hexagon Grid Lines -->
+<div class="absolute inset-0 border border-white/5 rounded-full"></div>
+<div class="absolute inset-8 border border-white/5 rounded-full"></div>
+<div class="absolute inset-16 border border-white/5 rounded-full"></div>
+<div class="absolute inset-24 border border-white/5 rounded-full"></div>
+<!-- Radar Shape (Static Design Representation) -->
+<svg class="size-full drop-shadow-[0_0_15px_rgba(7,182,213,0.3)]" viewbox="0 0 100 100">
+<polygon fill="rgba(7,182,213,0.2)" points="50,10 85,35 80,75 50,85 15,70 15,30" stroke="#07b6d5" stroke-width="0.5"></polygon>
+<circle cx="50" cy="10" fill="#07b6d5" r="1.5"></circle>
+<circle cx="85" cy="35" fill="#07b6d5" r="1.5"></circle>
+<circle cx="80" cy="75" fill="#07b6d5" r="1.5"></circle>
+<circle cx="50" cy="85" fill="#07b6d5" r="1.5"></circle>
+<circle cx="15" cy="70" fill="#07b6d5" r="1.5"></circle>
+<circle cx="15" cy="30" fill="#07b6d5" r="1.5"></circle>
+</svg>
+<!-- Labels -->
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-xs font-bold text-white/60">Joy</div>
+<div class="absolute top-1/4 -right-8 text-xs font-bold text-white/60">Surprise</div>
+<div class="absolute bottom-1/4 -right-8 text-xs font-bold text-white/60">Anger</div>
+<div class="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs font-bold text-white/60">Disgust</div>
+<div class="absolute bottom-1/4 -left-8 text-xs font-bold text-white/60">Sadness</div>
+<div class="absolute top-1/4 -left-8 text-xs font-bold text-white/60">Fear</div>
+</div>
+</div>
+</div>
+<!-- Lateral Progress Bars -->
+<div class="w-full lg:w-[400px] glass-card p-8 rounded-xl">
+<h3 class="text-xl font-bold mb-6">Desglose Detallado</h3>
+<div class="flex flex-col gap-5">
+<!-- Progress Item -->
+<div class="space-y-2">
+<div class="flex justify-between items-center text-sm font-bold">
+<span class="flex items-center gap-2">😊 Joy</span>
+<span class="text-primary">85%</span>
+</div>
+<div class="h-2 w-full bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 85%"></div>
+</div>
+</div>
+<!-- Progress Item -->
+<div class="space-y-2 opacity-80">
+<div class="flex justify-between items-center text-sm font-bold">
+<span class="flex items-center gap-2">😲 Surprise</span>
+<span>42%</span>
+</div>
+<div class="h-2 w-full bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-accent-violet/60" style="width: 42%"></div>
+</div>
+</div>
+<!-- Progress Item -->
+<div class="space-y-2 opacity-60">
+<div class="flex justify-between items-center text-sm font-bold">
+<span class="flex items-center gap-2">😨 Fear</span>
+<span>15%</span>
+</div>
+<div class="h-2 w-full bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-white/20" style="width: 15%"></div>
+</div>
+</div>
+<!-- Progress Item -->
+<div class="space-y-2 opacity-50">
+<div class="flex justify-between items-center text-sm font-bold">
+<span class="flex items-center gap-2">😢 Sadness</span>
+<span>8%</span>
+</div>
+<div class="h-2 w-full bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-white/10" style="width: 8%"></div>
+</div>
+</div>
+<!-- Progress Item -->
+<div class="space-y-2 opacity-40">
+<div class="flex justify-between items-center text-sm font-bold">
+<span class="flex items-center gap-2">😠 Anger</span>
+<span>4%</span>
+</div>
+<div class="h-2 w-full bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-white/10" style="width: 4%"></div>
+</div>
+</div>
+<!-- Progress Item -->
+<div class="space-y-2 opacity-30">
+<div class="flex justify-between items-center text-sm font-bold">
+<span class="flex items-center gap-2">🤢 Disgust</span>
+<span>2%</span>
+</div>
+<div class="h-2 w-full bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-white/10" style="width: 2%"></div>
+</div>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-white/10">
+<button class="w-full py-3 rounded-lg border border-primary/20 text-primary text-sm font-bold hover:bg-primary/5 transition-all">
+                        Ver Informe Completo
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<footer class="mt-20 py-10 border-t border-white/5 bg-black/40">
+<div class="max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-2 opacity-40">
+<span class="material-symbols-outlined text-sm">auto_awesome</span>
+<span class="text-xs font-bold tracking-widest uppercase">Powered by Emotions AI Architecture v3.0.4</span>
+</div>
+<div class="flex gap-8 opacity-40">
+<a class="text-xs font-medium hover:text-white transition-colors" href="#">Privacy</a>
+<a class="text-xs font-medium hover:text-white transition-colors" href="#">API docs</a>
+<a class="text-xs font-medium hover:text-white transition-colors" href="#">Enterprise</a>
+</div>
+<p class="text-xs text-white/20 font-medium">© 2024 Sentimientos. All rights reserved.</p>
+</div>
+</footer>
+</body></html>

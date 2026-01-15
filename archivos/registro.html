@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sentimientos v2.0</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1313ec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#0a0a0c",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0c;
+        }
+        .glass-card {
+            background: rgba(20, 20, 30, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 40px rgba(19, 19, 236, 0.15);
+        }
+        .bg-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 10% 20%, rgba(19, 19, 236, 0.15) 0%, transparent 40%),
+                        radial-gradient(circle at 90% 80%, rgba(147, 51, 234, 0.1) 0%, transparent 40%);
+        }
+        .gradient-btn {
+            background: linear-gradient(135deg, #1313ec 0%, #9333ea 100%);
+            transition: all 0.3s ease;
+        }
+        .gradient-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(19, 19, 236, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-white font-display min-h-screen">
+<div class="bg-glow"></div>
+<header class="sticky top-0 z-50 w-full border-b border-white/10 bg-background-dark/80 backdrop-blur-md px-6 md:px-20 py-4">
+<div class="max-w-[1200px] mx-auto flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="bg-primary p-2 rounded-lg">
+<svg class="size-6 text-white" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M39.475 21.6262C40.358 21.4363 40.6863 21.5589 40.7581 21.5934C40.7876 21.655 40.8547 21.857 40.8082 22.3336C40.7408 23.0255 40.4502 24.0046 39.8572 25.2301C38.6799 27.6631 36.5085 30.6631 33.5858 33.5858C30.6631 36.5085 27.6632 38.6799 25.2301 39.8572C24.0046 40.4502 23.0255 40.7407 22.3336 40.8082C21.8571 40.8547 21.6551 40.7875 21.5934 40.7581C21.5589 40.6863 21.4363 40.358 21.6262 39.475C21.8562 38.4054 22.4689 36.9657 23.5038 35.2817C24.7575 33.2417 26.5497 30.9744 28.7621 28.762C30.9744 26.5497 33.2417 24.7574 35.2817 23.5037C36.9657 22.4689 38.4054 21.8562 39.475 21.6262ZM4.41189 29.2403L18.7597 43.5881C19.8813 44.7097 21.4027 44.9179 22.7217 44.7893C24.0585 44.659 25.5148 44.1631 26.9723 43.4579C29.9052 42.0387 33.2618 39.5667 36.4142 36.4142C39.5667 33.2618 42.0387 29.9052 43.4579 26.9723C44.1631 25.5148 44.659 24.0585 44.7893 22.7217C44.9179 21.4027 44.7097 19.8813 43.5881 18.7597L29.2403 4.41187C27.8527 3.02428 25.8765 3.02573 24.2861 3.36776C22.6081 3.72863 20.7334 4.58419 18.8396 5.74801C16.4978 7.18716 13.9881 9.18353 11.5858 11.5858C9.18354 13.988 7.18717 16.4978 5.74802 18.8396C4.58421 20.7334 3.72865 22.6081 3.36778 24.2861C3.02574 25.8765 3.02429 27.8527 4.41189 29.2403Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h1 class="text-white text-xl font-bold tracking-tight">Sentimientos <span class="text-primary">v2.0</span></h1>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-gray-400 hover:text-white transition-colors text-sm font-medium" href="#">Soporte</a>
+<a class="text-gray-400 hover:text-white transition-colors text-sm font-medium" href="#">Documentación</a>
+<button class="bg-primary/20 hover:bg-primary/30 text-white px-6 py-2 rounded-full text-sm font-bold border border-primary/30 transition-all">
+                    Explorar
+                </button>
+</nav>
+</div>
+</header>
+<main class="flex flex-col items-center justify-center px-4 py-12 md:py-20">
+<div class="text-center mb-10 max-w-[600px]">
+<h2 class="text-white text-4xl md:text-5xl font-extrabold tracking-tight mb-4">Crear Cuenta</h2>
+<p class="text-gray-400 text-lg">Únete a la plataforma líder de análisis de sentimientos y potencia tus proyectos de IA.</p>
+</div>
+<div class="glass-card w-full max-w-[540px] p-8 md:p-12 rounded-[24px]">
+<form action="#" class="space-y-6">
+<div class="flex flex-col gap-2">
+<label class="text-white text-sm font-semibold ml-1">Nombre de Usuario</label>
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-500 group-focus-within:text-primary transition-colors">
+<span class="material-symbols-outlined" style="font-size: 20px;">person</span>
+</div>
+<input class="w-full bg-background-dark/50 border border-white/10 rounded-full py-4 pl-12 pr-4 text-white focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all placeholder:text-gray-600" placeholder="tu_usuario" type="text"/>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-white text-sm font-semibold ml-1">Correo Electrónico</label>
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-500 group-focus-within:text-primary transition-colors">
+<span class="material-symbols-outlined" style="font-size: 20px;">mail</span>
+</div>
+<input class="w-full bg-background-dark/50 border border-white/10 rounded-full py-4 pl-12 pr-4 text-white focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all placeholder:text-gray-600" placeholder="ejemplo@correo.com" type="email"/>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-white text-sm font-semibold ml-1">Contraseña</label>
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-500 group-focus-within:text-primary transition-colors">
+<span class="material-symbols-outlined" style="font-size: 20px;">lock</span>
+</div>
+<input class="w-full bg-background-dark/50 border border-white/10 rounded-full py-4 pl-12 pr-12 text-white focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all placeholder:text-gray-600" placeholder="••••••••" type="password"/>
+<div class="absolute inset-y-0 right-0 pr-4 flex items-center cursor-pointer text-gray-500 hover:text-white transition-colors">
+<span class="material-symbols-outlined" style="font-size: 20px;">visibility</span>
+</div>
+</div>
+<div class="mt-2 px-2">
+<div class="flex justify-between items-center mb-1">
+<span class="text-[10px] uppercase tracking-wider text-gray-500 font-bold">Seguridad</span>
+<span class="text-[10px] uppercase tracking-wider text-yellow-500 font-bold">Media</span>
+</div>
+<div class="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-red-500 to-yellow-500 w-[65%] rounded-full"></div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-white text-sm font-semibold ml-1">Confirmar Contraseña</label>
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-500 group-focus-within:text-primary transition-colors">
+<span class="material-symbols-outlined" style="font-size: 20px;">lock</span>
+</div>
+<input class="w-full bg-background-dark/50 border border-white/10 rounded-full py-4 pl-12 pr-4 text-white focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all placeholder:text-gray-600" placeholder="••••••••" type="password"/>
+</div>
+</div>
+<button class="gradient-btn w-full py-5 rounded-full text-white font-extrabold text-sm tracking-widest uppercase mt-4" type="submit">
+                    CREAR CUENTA
+                </button>
+</form>
+<div class="mt-8 text-center">
+<p class="text-gray-400 text-sm">
+                    ¿Ya tienes cuenta? <a class="text-primary hover:text-white font-bold transition-colors ml-1" href="#">Inicia Sesión</a>
+</p>
+</div>
+</div>
+<div class="mt-16 flex items-center gap-6 opacity-30 grayscale hover:grayscale-0 transition-all duration-500">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined">security</span>
+<span class="text-xs font-bold uppercase tracking-tighter">Secure Data</span>
+</div>
+<div class="w-px h-4 bg-gray-500"></div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined">bolt</span>
+<span class="text-xs font-bold uppercase tracking-tighter">Fast Analysis</span>
+</div>
+<div class="w-px h-4 bg-gray-500"></div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined">deployed_code</span>
+<span class="text-xs font-bold uppercase tracking-tighter">API V2.0</span>
+</div>
+</div>
+</main>
+<div class="fixed bottom-0 right-0 -z-10 opacity-40">
+<div class="w-96 h-96 bg-primary blur-[120px] rounded-full -mr-48 -mb-48"></div>
+</div>
+
+</body></html>
