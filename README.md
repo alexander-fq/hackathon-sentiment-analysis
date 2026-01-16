@@ -1,16 +1,120 @@
-# React + Vite
+# Hackathon NoCountry - Análisis de Sentimientos
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+API de Machine Learning diseñada para clasificar sentimientos en comentarios (Positivo/Negativo), permitiendo a las empresas automatizar la gestión de feedback y priorizar la atención al cliente.
 
-Currently, two official plugins are available:
+## Integrantes del Equipo
+| Nombre Completo | Usuario GitHub | Backend Developer | Data Scientist | Frontend Developer |
+| :--- | :--- | :---: | :---: | :---: |
+| Carlos Eduardo Ramírez Wong | CarlosRW | X | | X |
+| Raidel Rodriguez | | X | | |
+| Diego Vásquez | | X | | |
+| Diego Chacon Macias | | X | | |
+| Matias Schaff | | X | | |
+| Alexander Florez Quintero | alexander-fq | x | | |
+| Gisell López | | | X | |
+| Beatriz Suyo | | | X | |
+| Erik Gonzalez | | | X | |
+| Mailyn Zuñiga Padilla | | | X | |
+| Miguel Angel Oropeza G. | | | X | |
+| Eduin Pino | | | X | X|
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Arquitectura
+El proyecto sigue una arquitectura de microservicios e integración híbrida:
+**Frontend (React/HTML)** → **Backend (Spring Boot)** → **ML Service (FastAPI)** → **H2/PostgreSQL**
 
-## React Compiler
+## Estructura del Proyecto
+```text
+hackathon-sentiment-analysis/
+├── backend/           # API REST Spring Boot (Puerto 8080)
+├── data-science/      # Modelo ML + API FastAPI (Puerto 8000)
+├── frontend/          # Interfaz web React & Estáticos (Puerto 3000)
+└── docs/              # Documentación y capturas
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# Inicio Rápido
+### Backend
 
-## Expanding the ESLint configuration
+```bash
+cd backend
+# La base de datos H2 se creará automáticamente en /data
+mvn spring-boot:run
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Data Science (ML Service)
+```bash
+cd data-science
+source venv/bin/activate # En Windows use: venv\Scripts\activate
+cd api
+uvicorn main:app --reload --port 8000
+```
+
+### Frontend
+```bash
+cd frontend
+npm start
+```
+
+## Endpoints
+
+### Autenticación (Backend) - http://localhost:8080
+- `POST /api/auth/register` - Crear nuevos usuarios
+- `POST /api/auth/login` - Iniciar sesión (valida credenciales)
+
+### Análisis (Backend) - http://localhost:8080
+- `POST /api/sentiment` - Analizar sentimiento (conecta con ML Service)
+- `GET /api/stats` - Estadísticas de uso y persistencia
+
+### ML Service (FastAPI) - http://localhost:8000
+- `POST /predict` - Predecir sentimiento
+- `GET /health` - Health check
+- `GET /docs` - Documentación Swagger
+
+## Git Workflow
+```bash
+# Trabajar en tu rama
+git checkout feature/backend
+
+# Hacer cambios
+git add .
+git commit -m "feat: implementar sistema de autenticación con Spring Security 6"
+git push origin feature/backend
+
+# Crear Pull Request en GitHub
+# feature/backend → develop
+```
+
+## Tecnologías Utilizadas
+- Backend: Java 17, Spring Boot 3.x, Spring Data JPA, Spring Security 6.
+- Data Science: Python 3.10, Scikit-learn, Pandas, FastAPI, Joblib.
+- Database: H2 (Desarrollo) / PostgreSQL (Producción).
+- Frontend: React 18, HTML5/JS (Fetch API).
+
+---
+
+# Guía de Desarrollo por Área
+
+## Para Data Science
+```bash
+cd ~/hackathon-sentiment-analysis
+git checkout feature/data-science
+cd data-science
+source venv/bin/activate
+jupyter notebook
+# Trabajar en notebooks/training.ipynb
+```
+
+## Para Backend:
+```bash
+cd ~/hackathon-sentiment-analysis
+git checkout feature/backend
+cd backend
+# Desarrollo de controllers, services y configuración de seguridad
+```
+
+## Para Frontend:
+```bash
+cd ~/hackathon-sentiment-analysis
+git checkout feature/frontend
+cd frontend
+# Para iniciar proyecto React o editar archivos estáticos en backend/src/main/resources/static
+```
