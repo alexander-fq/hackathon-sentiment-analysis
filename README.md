@@ -1,75 +1,106 @@
-# 🎯 Hackathon - Análisis de Sentimientos
+🧠 Hackathon – Análisis de Sentimientos
 
-API de Machine Learning para clasificar sentimientos de comentarios como Positivos o Negativos.
+Aplicación full-stack para análisis de sentimientos de texto (Positivo / Negativo) usando Machine Learning, Spring Boot y React.
 
-# Arquitectura
-Frontend (React) → Backend (Spring Boot) → ML Service (FastAPI) → PostgreSQL
+🏗️ Arquitectura
+Frontend (React + Vite)
+        ↓
+Backend (Spring Boot 3 – Java 17)
+        ↓
+ML Service (FastAPI + scikit-learn)
 
-## Estructura
+
+Frontend: Interfaz web para autenticación y análisis de texto
+
+Backend: Gestión de usuarios, seguridad y orquestación
+
+ML Service: Modelo entrenado de análisis de sentimientos
+
+Base de Datos:
+
+H2 (persistente) → desarrollo
+
+PostgreSQL → objetivo producción
+
+📁 Estructura del Proyecto
 hackathon-sentiment-analysis/
-├── backend/          # API REST Spring Boot (Puerto 8080)
-├── data-science/     # Modelo ML + API FastAPI (Puerto 8000)
-├── frontend/         # Interfaz web React (Puerto 3000)
-└── docs/            # Documentación
+│
+├── backend/              # Spring Boot API (Puerto 8080)
+│
+├── data-science/         # ML + FastAPI (Puerto 8000)
+│   ├── api/
+│   │   └── main.py
+│   ├── models/
+│   │   ├── pipeline_sentimientos_español.pkl
+│   │   └── pipeline_sentimientos_ingles.pkl
+│   └── venv/
+│
+├── frontend-vite/        # React + Vite (Puerto 5173)
+│   ├── src/
+│   ├── public/
+│   └── tailwind.config.js
+│
+└── docs/                 # Documentación adicional
 
-# Inicio Rápido
+🚀 Inicio Rápido
+1️⃣ ML Service – FastAPI (Python)
+cd data-science
+venv\Scripts\activate     # Windows
+# source venv/bin/activate  # Linux / Mac
 
-### Backend
-```bash
+uvicorn api.main:app --reload --port 8000
+
+
+📌 Verificar:
+
+Swagger: http://localhost:8000/docs
+
+Health: http://localhost:8000/health
+
+2️⃣ Backend – Spring Boot
 cd backend
 mvn spring-boot:run
-```
 
-### Data Science (ML Service)
-```bash
-cd data-science
-source venv/bin/activate
-cd api
-uvicorn main:app --reload --port 8000
-```
 
-### Frontend
-```bash
-cd frontend
-npm start
-```
+📌 API disponible en:
 
-## Endpoints
+http://localhost:8080
 
-### ML Service (FastAPI) - http://localhost:8000
-- `POST /predict` - Predecir sentimiento
-- `GET /health` - Health check
-- `GET /docs` - Documentación Swagger
+3️⃣ Frontend – React + Vite
+cd frontend-vite
+npm install
+npm run dev
 
-### Backend API - http://localhost:8080
-- `POST /api/sentiment` - Analizar sentimiento
-- `GET /api/stats` - Estadísticas
 
-## Equipo
+📌 Frontend:
 
-- **Backend**: [Nombres]
-- **Data Science**: [Nombres]
-- **Frontend**: [Nombres]
+http://localhost:5173
 
-## Git Workflow
-```bash
-# Trabajar en tu rama
-git checkout feature/backend  # o tu rama
+🔌 Endpoints
+🧠 ML Service (FastAPI) – http://localhost:8000
+Método	Endpoint	Descripción
+POST	/predict	Analiza sentimiento
+GET	/health	Estado del servicio
+GET	/docs	Swagger UI
 
-# Hacer cambios
-git add .
-git commit -m "feat: descripción"
-git push origin feature/backend
+Ejemplo Request
 
-# Crear Pull Request en GitHub
-# feature/backend → develop
-```
+{
+  "text": "Me encanta este proyecto",
+  "lang": "es"
+}
 
-## Tecnologías
 
-- Java 17 + Spring Boot 3.x
-- Python 3.10 + scikit-learn + FastAPI
-- React 18
-- PostgreSQL 15
+Ejemplo Response
 
----
+{
+  "prediction": "Positivo",
+  "probability": 0.999,
+  "timestamp": "2026-01-15T18:42:44"
+}
+
+⚙️ Backend API – http://localhost:8080
+Método	Endpoint	Descripción
+POST	/api/auth/register	Registro de usuario
+POST	/api/auth/login	Login
+POST	`/api
