@@ -1,0 +1,13 @@
+C:\Users\usuario\Documents\Hackaton one\hackathon-sentiment-analysis\backend\sentiment-api\src\main\java\com\hackathon\sentiment\dto\FastApiResponse.java
+C:\Users\usuario\Documents\Hackaton one\hackathon-sentiment-analysis\backend\sentiment-api\src\main\java\com\hackathon\sentiment\config\WebClientConfig.java
+C:\Users\usuario\Documents\Hackaton one\hackathon-sentiment-analysis\backend\sentiment-api\src\main\java\com\hackathon\sentiment\dto\SentimentRequest.java
+C:\Users\usuario\Documents\Hackaton one\hackathon-sentiment-analysis\backend\sentiment-api\src\main\java\com\hackathon\sentiment\dto\SentimentResponse.java
+C:\Users\usuario\Documents\Hackaton one\hackathon-sentiment-analysis\backend\sentiment-api\src\main\java\com\hackathon\sentiment\service\SentimentService.java
+C:\Users\usuario\Documents\Hackaton one\hackathon-sentiment-analysis\backend\sentiment-api\src\main\java\com\hackathon\sentiment\model\Sentiment.java
+C:\Users\usuario\Documents\Hackaton one\hackathon-sentiment-analysis\backend\sentiment-api\src\main\java\com\hackathon\sentiment\controller\SentimentController.java
+C:\Users\usuario\Documents\Hackaton one\hackathon-sentiment-analysis\backend\sentiment-api\src\main\java\com\hackathon\sentiment\dto\FastApiRequest.java
+C:\Users\usuario\Documents\Hackaton one\hackathon-sentiment-analysis\backend\sentiment-api\src\main\java\com\hackathon\sentiment\repository\SentimentRepository.java
+C:\Users\usuario\Documents\Hackaton one\hackathon-sentiment-analysis\backend\sentiment-api\src\main\java\com\hackathon\sentiment\config\CorsConfig.java
+C:\Users\usuario\Documents\Hackaton one\hackathon-sentiment-analysis\backend\sentiment-api\src\main\java\com\hackathon\sentiment\controller\SentimentRequest.java
+C:\Users\usuario\Documents\Hackaton one\hackathon-sentiment-analysis\backend\sentiment-api\src\main\java\com\hackathon\sentiment\exception\GlobalExceptionHandler.java
+C:\Users\usuario\Documents\Hackaton one\hackathon-sentiment-analysis\backend\sentiment-api\src\main\java\com\hackathon\sentiment\SentimentApiApplication.java
