@@ -143,6 +143,22 @@ Para permitir su reutilización en producción, se serializaron:
 
 *Se utilizó la librería joblib.
 
+## Instrucciones para ejecutar el sistema 
+1. Clonar el repositorio
+2. Navegar a la carpeta `datascience/notebooks`
+3. Descargar python, el proyecto se desarrolló utilizando la versión 3.13.9. El programa se puede descargar desde [aquí](https://www.python.org/downloads/release/python-3139/). Nota importante al instalar python, asegurarse de marcar la casilla "Add Python to PATH" y señalar que se instale pip.
+4. Instalar las dependencias necesarias utilizando pip
+   ```bash
+   pip install pandas numpy nltk scikit-learn matplotlib seaborn joblib jupyterlab datasets ntlk re wordcloud huggingface_hub
+   ```
+    Si este comando no funciona probar con: 
+  
+    ```bash
+    python -m pip install pandas numpy nltk scikit-learn matplotlib seaborn joblib jupyterlab datasets ntlk re wordcloud huggingface_hub
+    ```
+5. Abrir el notebook correspondiente al idioma deseado (`Notebook_modelo_español.ipynb` o `Notebook_modelo_ingles.ipynb`).
+6. Ejecutar las celdas del notebook para reproducir el análisis y entrenamiento del modelo. En las celdas finales del notebook se encuentran algunas pruebas de predicción con ejemplos de texto.
+
 ## ⚙️ TECNOLOGIAS Y LIBRERIAS UTILIZADAS
 
 - Python 3
