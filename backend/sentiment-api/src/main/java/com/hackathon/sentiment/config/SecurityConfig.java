@@ -36,18 +36,46 @@ public class SecurityConfig {
     
     /**
      * Configuración de CORS para permitir solicitudes desde el frontend
+     * Configuración segura para desarrollo
      */
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080", "http://localhost:3000"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
-        configuration.setAllowedHeaders(Arrays.asList("*"));
+
+        // Solo orígenes específicos permitidos (sin wildcards)
+        configuration.setAllowedOrigins(Arrays.asList(
+            "http://localhost:5173",  // Frontend React + Vite
+            "http://localhost:3000",  // Alternativa React
+            "http://localhost:5500",  // Live Server VSCode
+            "http://127.0.0.1:5500"   // Live Server VSCode (IP)
+        ));
+
+        // Métodos HTTP permitidos (solo los necesarios)
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "OPTIONS"));
+
+        // Headers específicos permitidos
+        configuration.setAllowedHeaders(Arrays.asList(
+            "Content-Type",
+            "Authorization",
+            "X-Requested-With",
+            "Accept",
+            "Origin"
+        ));
+
+        // Headers expuestos al cliente
+        configuration.setExposedHeaders(Arrays.asList(
+            "Content-Type",
+            "Authorization"
+        ));
+
+        // Permitir credenciales (cookies, auth headers)
         configuration.setAllowCredentials(true);
+
+        // Cache de preflight request (1 hora)
         configuration.setMaxAge(3600L);
-        
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
+        source.registerCorsConfiguration("/api/**", configuration);
         return source;
     }
     

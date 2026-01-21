@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8080/api/sentiment";
+const API_URL = "http://localhost:8081/api/sentiment";
 
 const textInput = document.getElementById("textInput");
 const analyzeBtn = document.getElementById("analyzeBtn");
