@@ -1,6 +1,6 @@
 # 📊 Análisis de Sentimientos en Opiniones de Clientes Proyecto de Ciencia de Datos 
 
-## 📌 Descripción del proyecto
+# 📌 Descripción del proyecto
 
 Este proyecto implementa un modelo de clasificación supervisada para realizar análisis de sentimientos sobre opiniones de clientes (reseñas, comentarios y encuestas de satisfacción).
 
@@ -10,7 +10,7 @@ El objetivo es ayudar a áreas como Atención al Cliente, Marketing y Operacione
 - ➖ Neutro
 - ❌ Negativo
 
-## 🎯 Objetivo
+# 🎯 Objetivo
 
 Desarrollar un pipeline de Procesamiento de Lenguaje Natural (NLP) que permita:
 
@@ -24,13 +24,13 @@ Desarrollar un pipeline de Procesamiento de Lenguaje Natural (NLP) que permita:
 
 - Serializar el modelo para su reutilización
 
-## 🧠 Tipo de problema
+# 🧠 Tipo de problema
 El principial reto que aborda este proyecto es la predicción de sentimientos a partir de texto no estructurado en español, utilizando técnicas de procesamiento de lenguaje natural y aprendizaje supervisado.
 
 De igual forma consideramos que se necesitan dos modelos diferentes ya que las palabaras y expresiones que indican sentimientos positivos, negativos o neutros pueden variar significativamente según el lenguaje.
 
 
-## 📁 Estructura del proyecto
+# 📁 Estructura del proyecto
 
 hackathon-sentiment-analysis
 - resources
@@ -49,9 +49,9 @@ hackathon-sentiment-analysis
 - README.md
 
 
-## 🗃️ CONJUNTO DE DATOS
+# 🗃️ CONJUNTO DE DATOS
 
-### Conjunto de datos para modelo en español
+## Conjunto de datos para modelo en español
 Los datos utilizados para entrenar al modelo en español provienen de  [Hugging Face](https://huggingface.co/datasets/alexcom/analisis-sentimientos-textos-turisitcos-mx-polaridad/viewer/default/train?p=5). Esta base de datos contine opiniones de clientes en español sobre el servicio en de la industria turística en México, etiquetadas con una reseña del 1 al 5, estas puntuaciones se agruparon en las tres categorías de sentimiento anteriormente mencionadas de la siguiente manera:
 
 - Positivo: puntuaciones 4 y 5
@@ -64,7 +64,7 @@ La distribución de clases en el conjunto de datos es la siguiente:
 - Negativo: 14%
 
 
-### Conjunto de datos para modelo en inglés
+## Conjunto de datos para modelo en inglés
 El conjunto de datos que se utilizo para el entrenamiento del modelo en inglés proviene de [Kaggle](https://www.kaggle.com/datasets/crowdflower/twitter-airline-sentiment). Este conjunto de datos contiene opiniones de clientes en inglés sobre aerolíneas, además de una columna de las etiquetas del sentimiento las cuales son positive, negative y neutral. 
 
 La distribución de las clases del conjunto de datos es la siguiente:
@@ -73,13 +73,13 @@ La distribución de las clases del conjunto de datos es la siguiente:
 - Negativo: 63%
 
 
-## 🔍 EXPLORACIÓN Y LIMPIEZA DE DATOS (EDA)
+# 🔍 EXPLORACIÓN Y LIMPIEZA DE DATOS (EDA)
 Se realizó una exploración inicial del conjunto de datos para entender su estructura y calidad. Se identificaron y manejaron los siguientes aspectos:
 - Valores nulos o faltantes
 - Distribución de clases
 - Formato de texto
 
-## 🧹PREPROCESAMIENTO DE TEXTO
+# 🧹PREPROCESAMIENTO DE TEXTO
 El texto se preprocesó mediante las siguientes técnicas:
 1. Conversión a minúsculas
 2. Eliminación de puntuación y caracteres especiales
@@ -90,7 +90,7 @@ El texto se preprocesó mediante las siguientes técnicas:
 
 De igual forma para la base de datos en inglés se realizó una lematización para reducir las palabras a su forma base.
 
-## 🔢 VECTORIZACIÓN DE TEXTO (TF-IDF)
+# 🔢 VECTORIZACIÓN DE TEXTO (TF-IDF)
 
 El texto limpio se transformó en variables numéricas mediante TF-IDF (Term Frequency – Inverse Document Frequency), utilizando:
 
@@ -100,7 +100,7 @@ El texto limpio se transformó en variables numéricas mediante TF-IDF (Term Fre
 - Eliminación de términos muy frecuentes y muy raros.
 
 
-## 🤖 Modelos utilizados
+# 🤖 Modelos utilizados
 En ambos casos se probaron dos modelos:
 - Regresión Logística
 - Multinomial Naive Bayes
@@ -108,7 +108,7 @@ En ambos casos se probaron dos modelos:
 Se seleccionó el modelo de Regresión Logística para ambos idiomas debido a su mejor desempeño en las métricas evaluadas.
 
 
-## 📈 EVALUACIÓN DEL MODELO
+# 📈 EVALUACIÓN DEL MODELO
 El modelo fue evaluado usando las siguientes métricas:
 
 - Exactitud (Accuracy)
@@ -133,7 +133,7 @@ Las métricas obtenidas en el conjunto de prueba del modelo en inglés fueron:
 - Sensibilidad: 88.1%
 - F1-Score: 88.6%
 
-## 💾 SERIALIZACIÓN DEL MODELO
+# 💾 SERIALIZACIÓN DEL MODELO
 
 Para permitir su reutilización en producción, se serializaron:
 
@@ -143,23 +143,52 @@ Para permitir su reutilización en producción, se serializaron:
 
 *Se utilizó la librería joblib.
 
-## Instrucciones para ejecutar el sistema 
-1. Clonar el repositorio
-2. Navegar a la carpeta `datascience/notebooks`
-3. Descargar python, el proyecto se desarrolló utilizando la versión 3.13.9. El programa se puede descargar desde [aquí](https://www.python.org/downloads/release/python-3139/). Nota importante al instalar python, asegurarse de marcar la casilla "Add Python to PATH" y señalar que se instale pip.
-4. Instalar las dependencias necesarias utilizando pip
-   ```bash
-   pip install pandas numpy nltk scikit-learn matplotlib seaborn joblib jupyterlab datasets ntlk re wordcloud huggingface_hub
-   ```
-    Si este comando no funciona probar con: 
-  
-    ```bash
-    python -m pip install pandas numpy nltk scikit-learn matplotlib seaborn joblib jupyterlab datasets ntlk re wordcloud huggingface_hub
-    ```
-5. Abrir el notebook correspondiente al idioma deseado (`Notebook_modelo_español.ipynb` o `Notebook_modelo_ingles.ipynb`).
-6. Ejecutar las celdas del notebook para reproducir el análisis y entrenamiento del modelo. En las celdas finales del notebook se encuentran algunas pruebas de predicción con ejemplos de texto.
+# Instrucciones para ejecutar el sistema 
+A continuación se detallan los pasos para ejecutar y reproducir el análisis y entrenamiento del modelo de análisis de sentimientos en opiniones de clientes.
 
-## ⚙️ TECNOLOGIAS Y LIBRERIAS UTILIZADAS
+## 1. Clonar el repositorio
+
+Utilizar el siguiente comando de git para clonar el repositorio en la máquina local:
+
+```
+git clone https://github.com/alexander-fq/hackathon-sentiment-analysis.git
+cd hackathon-sentiment-analysis
+git checkout feature/backend
+
+```
+
+## 2. Descargar python
+El proyecto se desarrolló utilizando la versión 3.13.9. El programa se puede descargar desde [aquí](https://www.python.org/downloads/release/python-3139/). Nota importante al instalar python, asegurarse de marcar la casilla "Add Python to PATH" y señalar que se instale pip.
+
+
+## 3. Navegar a la carpeta pertinente 
+Al tener el repositorio clonado en su maquina local, se puede mover a la carpeta de `datascience/notebooks`, dónde se encuentran los notebooks con el análisis y entrenamiento del modelo.
+   
+## 4. Instalar las dependencias necesarias utilizando pip
+
+```bash
+pip install pandas numpy nltk scikit-learn matplotlib seaborn joblib jupyterlab datasets ntlk re wordcloud huggingface_hub
+```
+Si este comando no funciona probar con: 
+
+```bash
+python -m pip install pandas numpy nltk scikit-learn matplotlib seaborn joblib jupyterlab datasets ntlk re wordcloud huggingface_hub
+```
+## 5. Abrir el notebook correspondiente 
+Al idioma deseado (`Notebook_modelo_español.ipynb` o `Notebook_modelo_ingles.ipynb`). El notebook se puede abrir utilizando Jupyter Notebook o Jupyter Lab. Para abrir Jupyter Lab, ejecutar el siguiente comando en la terminal:
+
+
+## 6. Ejecutar el notebook 
+Ejecutar las celdas del notebook para reproducir el análisis y entrenamiento del modelo. En las celdas finales del notebook se encuentran algunas pruebas de predicción con ejemplos de texto.
+
+Por ejemplo:
+Texto: Excelente servicio, muy recomendado!
+Predicción: Positivo
+Confianza: 100.00%
+Probabilidades: {'Negativo': np.float64(1.7887841720618316e-06), 'Neutro': np.float64(5.0523575792699135e-06), 'Positivo': np.float64(0.9999931588582488)}
+
+
+# ⚙️ TECNOLOGIAS Y LIBRERIAS UTILIZADAS
 
 - Python 3
 - Pandas
