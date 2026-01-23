@@ -182,10 +182,15 @@ Al idioma deseado (`Notebook_modelo_español.ipynb` o `Notebook_modelo_ingles.ip
 Ejecutar las celdas del notebook para reproducir el análisis y entrenamiento del modelo. En las celdas finales del notebook se encuentran algunas pruebas de predicción con ejemplos de texto.
 
 Por ejemplo:
-Texto: Excelente servicio, muy recomendado!
-Predicción: Positivo
-Confianza: 100.00%
-Probabilidades: {'Negativo': np.float64(1.7887841720618316e-06), 'Neutro': np.float64(5.0523575792699135e-06), 'Positivo': np.float64(0.9999931588582488)}
+
+Texto: 
+- Excelente servicio, muy recomendado!
+- Predicción: Positivo
+- Confianza: 100.00%
+- Probabilidades: 
+  - **Negativo**: np.float64(1.7887841720618316e-06)
+  - **Neutro**: np.float64(5.0523575792699135e-06)
+  - **Positivo**: np.float64(0.9999931588582488)
 
 
 # ⚙️ TECNOLOGIAS Y LIBRERIAS UTILIZADAS
